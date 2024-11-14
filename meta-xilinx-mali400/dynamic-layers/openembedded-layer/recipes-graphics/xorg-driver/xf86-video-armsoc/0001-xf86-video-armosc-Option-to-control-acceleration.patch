@@ -7,6 +7,7 @@ Add xorg config option to enable / disable GPU accelerated picture
 composition. Enable acceleration by default.
 
 Signed-off-by: Anatoliy Klymenko <anatoliy.klymenko@amd.com>
+Upstream-Status: Inappropriate [Xilinx specific]
 ---
  man/armsoc.man      |  6 ++++++
  src/armsoc_driver.c | 20 +++++++++++++++-----
