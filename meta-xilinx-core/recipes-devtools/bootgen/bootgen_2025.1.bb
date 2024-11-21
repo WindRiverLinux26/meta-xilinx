@@ -4,7 +4,7 @@ DESCRIPTION = "Building and installing bootgen, a Xilinx tool that lets you stit
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=04054e01a445f223956a47542277e6ad"
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 
 DEPENDS += "openssl"
 RDEPENDS:${PN} += "openssl"
