@@ -1,0 +1,51 @@
+From 4a48c1d516ff83d47f5b73ccb0897195a0f04b1f Mon Sep 17 00:00:00 2001
+From: Quanyang Wang <quanyang.wang@windriver.com>
+Date: Wed, 18 Jun 2025 14:58:13 +0800
+Subject: [PATCH] eglinfo: use EGL_CONTEXT_*_KHR instead of EGL_CONTEXT_*
+
+The variables EGL_CONTEXT_* are defined in EGL/egl.h which is provided
+by the package "mesa". But for Xilinx platforms, the opengl libraries
+and headers are provided by libmali-xlnx. And only EGL_CONTEXT_*_KHR
+variables are defined in EGL/eglext.h in libmali-xlnx. So let's replace
+EGL_CONTEXT_* with EGL_CONTEXT_*_KHR.
+
+Upstream-Status: Inappropriate [Xilinx specific]
+
+Signed-off-by: Quanyang Wang <quanyang.wang@windriver.com>
+---
+ src/egl/opengl/eglinfo.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/egl/opengl/eglinfo.c b/src/egl/opengl/eglinfo.c
+index 69f82f5..6747d84 100644
+--- a/src/egl/opengl/eglinfo.c
++++ b/src/egl/opengl/eglinfo.c
+@@ -421,11 +421,11 @@ createEGLContext(EGLDisplay d, EGLConfig conf, int api,
+             return NULL;
+ 
+          const int attribs_new[] = {
+-            EGL_CONTEXT_MAJOR_VERSION, gl_versions[i].major,
+-            EGL_CONTEXT_MINOR_VERSION, gl_versions[i].minor,
+-            EGL_CONTEXT_OPENGL_PROFILE_MASK,
+-            core_profile ? EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT :
+-                           EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT,
++            EGL_CONTEXT_MAJOR_VERSION_KHR, gl_versions[i].major,
++            EGL_CONTEXT_MINOR_VERSION_KHR, gl_versions[i].minor,
++            EGL_CONTEXT_OPENGL_PROFILE_MASK_KHR,
++            core_profile ? EGL_CONTEXT_OPENGL_CORE_PROFILE_BIT_KHR :
++                           EGL_CONTEXT_OPENGL_COMPATIBILITY_PROFILE_BIT_KHR,
+             EGL_NONE,
+          };
+ 
+@@ -460,7 +460,7 @@ createEGLContext(EGLDisplay d, EGLConfig conf, int api,
+        */
+       for (int i = 3; i > 0; i--) {
+          const int attribs[] = {
+-            EGL_CONTEXT_MAJOR_VERSION, i,
++            EGL_CONTEXT_MAJOR_VERSION_KHR, i,
+             EGL_NONE,
+          };
+          ctx = eglCreateContext(d, conf, EGL_NO_CONTEXT, attribs);
+-- 
+2.40.0
+

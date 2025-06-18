@@ -28,10 +28,10 @@ index b642e8cd..f4716ba3 100644
  
  #include "buffers.h"
  
-@@ -146,12 +147,28 @@ bo_create(int fd, unsigned int format,
- 	case DRM_FORMAT_YUV420:
- 	case DRM_FORMAT_YVU420:
+@@ -146,6 +147,14 @@ bo_create(int fd, unsigned int format,
+ 	case DRM_FORMAT_YVU422:
  	case DRM_FORMAT_YUV444:
+ 	case DRM_FORMAT_YVU444:
 +	case DRM_FORMAT_T5M8:
 +	case DRM_FORMAT_T6M8:
 +	case DRM_FORMAT_T508:
@@ -43,9 +43,10 @@ index b642e8cd..f4716ba3 100644
  		bpp = 8;
  		break;
  
- 	case DRM_FORMAT_NV15:
- 	case DRM_FORMAT_NV20:
- 	case DRM_FORMAT_NV30:
+@@ -160,9 +169,28 @@ bo_create(int fd, unsigned int format,
+ 	case DRM_FORMAT_XV15:
+ 	case DRM_FORMAT_XV20:
+ 	case DRM_FORMAT_X403:
 +	case DRM_FORMAT_T5MA:
 +	case DRM_FORMAT_T6MA:
 +	case DRM_FORMAT_T50A:
@@ -54,10 +55,6 @@ index b642e8cd..f4716ba3 100644
 +	case DRM_FORMAT_T62A:
 +	case DRM_FORMAT_T54A:
 +	case DRM_FORMAT_T64A:
- 		bpp = 10;
- 		break;
- 
-@@ -161,6 +178,17 @@ bo_create(int fd, unsigned int format,
  		bpp = 10;
  		break;
  
@@ -75,110 +72,97 @@ index b642e8cd..f4716ba3 100644
  	case DRM_FORMAT_S410:
  	case DRM_FORMAT_S412:
  	case DRM_FORMAT_P210:
-@@ -241,6 +269,34 @@ bo_create(int fd, unsigned int format,
+@@ -241,12 +269,34 @@ bo_create(int fd, unsigned int format,
  	}
  
  	switch (format) {
 +	case DRM_FORMAT_T5M8:
 +	case DRM_FORMAT_T5MA:
 +	case DRM_FORMAT_T5MC:
-+		virtual_width = ALIGN(width, 32);
-+		virtual_height = height;
++		is_planar = false;
++		xsub = 1;
++		ysub = 1;
 +		break;
 +
 +	case DRM_FORMAT_T6M8:
 +	case DRM_FORMAT_T6MA:
 +	case DRM_FORMAT_T6MC:
-+		virtual_width = ALIGN(width, 64);
-+		virtual_height = height;
-+		break;
-+
-+	case DRM_FORMAT_T508:
-+	case DRM_FORMAT_T50A:
-+	case DRM_FORMAT_T50C:
-+		virtual_width = ALIGN(width, 32);
-+		virtual_height = height * 3 / 2;
-+		break;
-+
-+	case DRM_FORMAT_T608:
-+	case DRM_FORMAT_T60A:
-+	case DRM_FORMAT_T60C:
-+		virtual_width = ALIGN(width, 64);
-+		virtual_height = height * 3 / 2;
++		is_planar = false;
++		xsub = 1;
++		ysub = 1;
 +		break;
 +
  	case DRM_FORMAT_NV12:
  	case DRM_FORMAT_NV21:
  	case DRM_FORMAT_NV15:
-@@ -255,14 +311,18 @@ bo_create(int fd, unsigned int format,
- 		virtual_height = height * 3 / 2;
- 		break;
+ 	case DRM_FORMAT_XV15:
+ 	case DRM_FORMAT_YUV420:
+ 	case DRM_FORMAT_YVU420:
++	case DRM_FORMAT_T508:
++	case DRM_FORMAT_T50A:
++	case DRM_FORMAT_T50C:
++	case DRM_FORMAT_T608:
++	case DRM_FORMAT_T60A:
++	case DRM_FORMAT_T60C:
+ 		is_planar = true;
+ 		xsub = 2;
+ 		ysub = 2;
+@@ -276,6 +326,12 @@ bo_create(int fd, unsigned int format,
+ 	case DRM_FORMAT_S412:
+ 	case DRM_FORMAT_YUV444:
+ 	case DRM_FORMAT_YVU444:
++	case DRM_FORMAT_T548:
++	case DRM_FORMAT_T54A:
++	case DRM_FORMAT_T54C:
++	case DRM_FORMAT_T648:
++	case DRM_FORMAT_T64A:
++	case DRM_FORMAT_T64C:
+ 		is_planar = true;
+ 		xsub = 1;
+ 		ysub = 1;
+@@ -293,11 +349,42 @@ bo_create(int fd, unsigned int format,
+ 		virtual_height += height * 2 / xsub / ysub;
  
--	case DRM_FORMAT_XV20:
--		virtual_width = (width * 32) / 30;
+ 	switch (format) {
++	case DRM_FORMAT_T5M8:
++	case DRM_FORMAT_T5MA:
++	case DRM_FORMAT_T5MC:
++	case DRM_FORMAT_T508:
++	case DRM_FORMAT_T50A:
++	case DRM_FORMAT_T50C:
 +	case DRM_FORMAT_T528:
 +	case DRM_FORMAT_T52A:
 +	case DRM_FORMAT_T52C:
-+		virtual_width = ALIGN(width, 32);
- 		virtual_height = height * 2;
- 		break;
- 
--	case DRM_FORMAT_X403:
--		virtual_width = (width * 32) / 30;
--		virtual_height = height * 3;
-+	case DRM_FORMAT_T628:
-+	case DRM_FORMAT_T62A:
-+	case DRM_FORMAT_T62C:
-+		virtual_width = ALIGN(width, 64);
-+		virtual_height = height * 2;
- 		break;
- 
- 	case DRM_FORMAT_NV16:
-@@ -275,6 +335,11 @@ bo_create(int fd, unsigned int format,
- 		virtual_height = height * 2;
- 		break;
- 
-+	case DRM_FORMAT_XV20:
-+		virtual_width = (width * 32) / 30;
-+		virtual_height = height * 2;
-+		break;
-+
- 	case DRM_FORMAT_YUV444:
- 	case DRM_FORMAT_S410:
- 	case DRM_FORMAT_S412:
-@@ -282,6 +347,20 @@ bo_create(int fd, unsigned int format,
- 		virtual_height = height * 3;
- 		break;
- 
 +	case DRM_FORMAT_T548:
 +	case DRM_FORMAT_T54A:
 +	case DRM_FORMAT_T54C:
 +		virtual_width = ALIGN(width, 32);
-+		virtual_height = height * 3;
 +		break;
 +
++	case DRM_FORMAT_T6M8:
++	case DRM_FORMAT_T6MA:
++	case DRM_FORMAT_T6MC:
++	case DRM_FORMAT_T608:
++	case DRM_FORMAT_T60A:
++	case DRM_FORMAT_T60C:
++	case DRM_FORMAT_T628:
++	case DRM_FORMAT_T62A:
++	case DRM_FORMAT_T62C:
 +	case DRM_FORMAT_T648:
 +	case DRM_FORMAT_T64A:
 +	case DRM_FORMAT_T64C:
 +		virtual_width = ALIGN(width, 64);
-+		virtual_height = height * 3;
 +		break;
-+
- 	case DRM_FORMAT_NV24:
- 	case DRM_FORMAT_NV42:
- 	case DRM_FORMAT_NV30:
-@@ -289,6 +368,11 @@ bo_create(int fd, unsigned int format,
- 		virtual_height = height * 3;
++	
+ 	case DRM_FORMAT_XV15:
+ 	case DRM_FORMAT_XV20:
+ 	case DRM_FORMAT_X403:
+ 		virtual_width = (width * 32) / 30;
  		break;
- 
-+	case DRM_FORMAT_X403:
-+		virtual_width = (width * 32) / 30;
-+		virtual_height = height * 3;
-+		break;
 +
  	default:
  		virtual_width = width;
- 		virtual_height = height;
+ 		break;
 @@ -323,9 +407,20 @@ bo_create(int fd, unsigned int format,
  	case DRM_FORMAT_Y12:
  #endif
@@ -201,7 +185,7 @@ index b642e8cd..f4716ba3 100644
  
  		planes[0] = virtual;
  		break;
-@@ -341,9 +436,28 @@ bo_create(int fd, unsigned int format,
+@@ -341,10 +436,29 @@ bo_create(int fd, unsigned int format,
  	case DRM_FORMAT_P210:
  	case DRM_FORMAT_P010:
  	case DRM_FORMAT_P012:
@@ -220,6 +204,7 @@ index b642e8cd..f4716ba3 100644
  		offsets[0] = 0;
  		handles[0] = bo->handle;
 -		pitches[0] = bo->pitch;
+-		pitches[1] = pitches[0] * 2 / xsub;
 +		if (format == DRM_FORMAT_T508 || format == DRM_FORMAT_T50A || format == DRM_FORMAT_T50C ||
 +			format == DRM_FORMAT_T528 || format == DRM_FORMAT_T52A || format == DRM_FORMAT_T52C)
 +			pitches[0] = ALIGN(width, 32) * bpp / 8;
@@ -228,11 +213,12 @@ index b642e8cd..f4716ba3 100644
 +			pitches[0] = ALIGN(width, 64) * bpp / 8;
 +		else
 +			pitches[0] = bo->pitch;
- 		pitches[1] = pitches[0];
++		pitches[1] = pitches[0];
  		offsets[1] = pitches[0] * height;
  		handles[1] = bo->handle;
-@@ -370,9 +484,20 @@ bo_create(int fd, unsigned int format,
- 	case DRM_FORMAT_YUV444:
+ 
+@@ -370,14 +484,25 @@ bo_create(int fd, unsigned int format,
+ 	case DRM_FORMAT_X403:
  	case DRM_FORMAT_S410:
  	case DRM_FORMAT_S412:
 +	case DRM_FORMAT_T548:
@@ -244,23 +230,22 @@ index b642e8cd..f4716ba3 100644
  		offsets[0] = 0;
  		handles[0] = bo->handle;
 -		pitches[0] = bo->pitch;
+-		pitches[1] = pitches[0] / xsub;
 +		if (format == DRM_FORMAT_T548 || format == DRM_FORMAT_T54A || format == DRM_FORMAT_T54C)
 +			pitches[0] = ALIGN(width, 32) * bpp / 8;
 +		else if (format == DRM_FORMAT_T648 || format == DRM_FORMAT_T64A || format == DRM_FORMAT_T64C)
 +			pitches[0] = ALIGN(width, 64) * bpp / 8;
 +		else
 +			pitches[0] = bo->pitch;
- 		pitches[1] = pitches[0];
++		pitches[1] = pitches[0];
  		offsets[1] = pitches[0] * height;
  		handles[1] = bo->handle;
-@@ -380,7 +505,6 @@ bo_create(int fd, unsigned int format,
- 		offsets[2] = offsets[1] + pitches[1] * height;
+ 		pitches[2] = pitches[1];
+-		offsets[2] = offsets[1] + pitches[1] * height / ysub;
++		offsets[2] = offsets[1] + pitches[1] * height;
  		handles[2] = bo->handle;
  
--
  		planes[0] = virtual;
- 		planes[1] = virtual + offsets[1];
- 		planes[2] = virtual + offsets[2];
 diff --git a/tests/util/format.c b/tests/util/format.c
 index 39cdf2ee..69798a70 100644
 --- a/tests/util/format.c
@@ -355,7 +340,7 @@ index e9da2e06..2718869f 100644
  			       unsigned short a,
  			       unsigned short b,
 @@ -302,6 +342,545 @@ static void write_pixels_10bpp(unsigned char *mem,
- 	  mem[4] = ((d >> 2) & 0xff);
+ 	}
  }
  
 +static void write_pixels_12bpp(unsigned char *mem,
@@ -939,7 +924,7 @@ index e9da2e06..2718869f 100644
  	case DRM_FORMAT_NV12:
  	case DRM_FORMAT_NV21:
  	case DRM_FORMAT_NV16:
-@@ -1944,13 +2549,19 @@ static void fill_smpte(const struct util_format_info *info,
+@@ -1944,9 +2549,18 @@ static void fill_smpte(const struct util_format_info *info,
  						   stride);
  
  	case DRM_FORMAT_X403:
@@ -947,9 +932,6 @@ index e9da2e06..2718869f 100644
 +		return fill_smpte_yuv_planar_x403(&info->yuv, planes[0], planes[1],
  					     planes[2], width, height, stride);
  
--	case DRM_FORMAT_YUV420:
--		return fill_smpte_yuv_planar(&info->yuv, planes[0], planes[1],
--					     planes[2], width, height, stride);
 +	case DRM_FORMAT_T548:
 +	case DRM_FORMAT_T648:
 +	case DRM_FORMAT_T54A:
@@ -958,11 +940,10 @@ index e9da2e06..2718869f 100644
 +	case DRM_FORMAT_T64C:
 +		return fill_smpte_tiled_yuv(&info->yuv, planes[0], planes[1],
 +					     planes[2], width, height, stride, info->format);
- 
-+	case DRM_FORMAT_YUV420:
++
+ 	case DRM_FORMAT_YUV420:
+ 	case DRM_FORMAT_YUV422:
  	case DRM_FORMAT_YUV444:
- 		return fill_smpte_yuv_planar(&info->yuv, planes[0], planes[1],
- 					     planes[2], width, height, stride);
 @@ -2212,6 +2823,485 @@ static void fill_tiles_yuv_planar(const struct util_format_info *info,
  	}
  }
@@ -1487,17 +1468,14 @@ index e9da2e06..2718869f 100644
  	case DRM_FORMAT_NV12:
  	case DRM_FORMAT_NV21:
  	case DRM_FORMAT_NV16:
-@@ -2459,13 +3573,18 @@ static void fill_tiles(const struct util_format_info *info,
- 						   width, height, stride);
- 
- 	case DRM_FORMAT_YUV420:
--		return fill_tiles_yuv_planar(info, planes[0], planes[1],
--					     planes[2], width, height, stride);
--
- 	case DRM_FORMAT_YUV444:
+@@ -2459,10 +3573,14 @@ static void fill_tiles(const struct util_format_info *info,
  		return fill_tiles_yuv_planar(info, planes[0], planes[1],
  					     planes[2], width, height, stride);
  
+-	case DRM_FORMAT_YUV444:
+-		return fill_tiles_yuv_planar(info, planes[0], planes[1],
+-					     planes[2], width, height, stride);
+-
 +	case DRM_FORMAT_T548:
 +	case DRM_FORMAT_T648:
 +	case DRM_FORMAT_T54A:
@@ -1508,7 +1486,7 @@ index e9da2e06..2718869f 100644
 +					     planes[2], width, height, stride, info->format);
  
  	case DRM_FORMAT_YVU420:
- 		return fill_tiles_yuv_planar(info, planes[0], planes[2],
+ 	case DRM_FORMAT_YVU422:
 -- 
 2.34.1
 

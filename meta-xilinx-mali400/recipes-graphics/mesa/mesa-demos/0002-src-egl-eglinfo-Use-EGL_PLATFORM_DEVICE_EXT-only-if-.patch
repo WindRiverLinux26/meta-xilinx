@@ -20,7 +20,7 @@ index e8a0225..bc0e869 100644
 +++ b/src/egl/opengl/eglinfo.c
 @@ -243,6 +243,7 @@ doOneDisplay(EGLDisplay d, const char *name)
  static int
- doOneDevice(EGLDeviceEXT d, int i)
+ doOneDevice(EGLDeviceEXT d, int i, struct options opts)
  {
 +#ifdef EGL_PLATFORM_DEVICE_EXT
     PFNEGLGETPLATFORMDISPLAYEXTPROC getPlatformDisplay =
@@ -29,7 +29,7 @@ index e8a0225..bc0e869 100644
 @@ -253,6 +254,9 @@ doOneDevice(EGLDeviceEXT d, int i)
  
     return doOneDisplay(getPlatformDisplay(EGL_PLATFORM_DEVICE_EXT, d, NULL),
-                        "Platform Device");
+                        "Platform Device", opts);
 +#else
 +   return 0;
 +#endif

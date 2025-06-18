@@ -26,7 +26,7 @@ index 45f6707d..d9041e57 100644
 
  #define MEDIA_BUS_FMT_FIXED			0x0001
 
--/* RGB - next is	0x1026 */
+-/* RGB - next is	0x1028 */
 +/* RGB - next is	0x1035
 + * Note: 0x101b-0x102d are intentionally left unused to match media-bus-format
 + *  numbering of linux-xlnx.
@@ -68,8 +68,8 @@ index 397a99e3..7356daa4 100644
 --- a/include/linux/videodev2.h
 +++ b/include/linux/videodev2.h
 @@ -556,6 +556,54 @@ struct v4l2_pix_format {
- /* RGB formats (6 or 8 bytes per pixel) */
- #define V4L2_PIX_FMT_BGR48_12    v4l2_fourcc('B', '3', '1', '2') /* 48  BGR 12-bit per component */
+ #define V4L2_PIX_FMT_BGR48       v4l2_fourcc('B', 'G', 'R', '6') /* 48  BGR 16-bit per component */
+ #define V4L2_PIX_FMT_RGB48       v4l2_fourcc('R', 'G', 'B', '6') /* 48  RGB 16-bit per component */
  #define V4L2_PIX_FMT_ABGR64_12   v4l2_fourcc('B', '4', '1', '2') /* 64  BGRA 12-bit per component */
 +#define V4L2_PIX_FMT_RGB_BF48  v4l2_fourcc('B', 'B', '4', '8') /* 48  RGB-BF-16-16-16 */
 +#define V4L2_PIX_FMT_RGB_FP48  v4l2_fourcc('B', 'F', '4', '8') /* 48  RGB-FP-16-16-16 */

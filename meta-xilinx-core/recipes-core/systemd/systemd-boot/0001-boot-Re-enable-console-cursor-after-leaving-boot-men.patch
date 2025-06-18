@@ -28,9 +28,9 @@ Signed-off-by: John Toomey <john.toomey@amd.com>
 
 diff --git a/src/boot/efi/boot.c b/src/boot/efi/boot.c
 index 5c0f0ab10a..c80ea7f395 100644
---- a/src/boot/efi/boot.c
-+++ b/src/boot/efi/boot.c
-@@ -1142,6 +1142,7 @@ static bool menu_run(
+--- a/src/boot/boot.c
++++ b/src/boot/boot.c
+@@ -961,6 +961,7 @@ static bool menu_run(
          }
  
          *chosen_entry = config->entries[idx_highlight];
