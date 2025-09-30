@@ -4,7 +4,6 @@ TARGET_VENDOR = "-amd"
 
 # Zephyr uses newlib for kernel, drivers and applications.
 TCLIBC ?= "newlib"
-TCLIBCAPPEND =""
 
 TEST_TARGET = "QemuTargetZephyr"
 TEST_SUITES = "zephyr"
