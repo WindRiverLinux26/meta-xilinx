@@ -42,7 +42,6 @@ TOOLCHAIN_HOST_TASK:append:sdkmingw32 = " nativesdk-mingw-w64-winpthreads"
 DISABLE_STATIC:class-target ?= ""
 
 require conf/distro/include/no-static-libs.inc
-require conf/distro/include/yocto-uninative.inc
 INHERIT += "uninative"
 
 BB_SIGNATURE_HANDLER ?= "OEEquivHash"
