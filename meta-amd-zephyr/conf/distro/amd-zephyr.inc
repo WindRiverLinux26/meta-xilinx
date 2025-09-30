@@ -14,7 +14,6 @@ INHERIT += "siteinfo-zephyr"
 # multiconfig builds. Hence disble it for now.
 # ZEPHYR_INHERIT_CLASSES += "zephyr-qemuboot"
 
-require conf/distro/include/yocto-uninative.inc
 INHERIT += "uninative"
 
 BB_SIGNATURE_HANDLER ?= "OEEquivHash"
