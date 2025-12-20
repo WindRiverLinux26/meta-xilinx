@@ -1,0 +1,32 @@
+From 86c3c74c604ccc599c667955845fbc50d25d6503 Mon Sep 17 00:00:00 2001
+From: Quanyang Wang <quanyang.wang@windriver.com>
+Date: Mon, 15 Dec 2025 16:04:56 +0800
+Subject: [PATCH] bootgen: fix header file missing
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This patch fixes the following error with gcc option
+"-Wimplicit-function-declaration" enabled:
+
+    | hss_param.c:157:13: error: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+    |   157 |             printf("Private key expired\n");
+    |       |             ^~~~~~
+    | hss_param.c:7:1: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+
+Upstream-Status: Pending
+
+Signed-off-by: Quanyang Wang <quanyang.wang@windriver.com>
+---
+diff --git a/lms-hash-sigs/hss_param.c b/lms-hash-sigs/hss_param.c
+index 7a2abd6..6b2b950 100755
+--- a/lms-hash-sigs/hss_param.c
++++ b/lms-hash-sigs/hss_param.c
+@@ -4,6 +4,7 @@
+ #include "endian.h"
+ #include "hss_zeroize.h"
+ #include "lm_common.h"
++#include <stdio.h>
+ 
+ static struct map_structure {
+     param_set_t public;

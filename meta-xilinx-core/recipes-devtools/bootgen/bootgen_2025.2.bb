@@ -4,6 +4,8 @@ DESCRIPTION = "Building and installing bootgen, a Xilinx tool that lets you stit
 LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=04054e01a445f223956a47542277e6ad"
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+
 DEPENDS += "openssl"
 RDEPENDS:${PN} += "openssl"
 
@@ -13,6 +15,10 @@ SRCREV = "0e336a00dcff5842648f4a1e9f919abf7c960d97"
 
 BRANCHARG = "${@['nobranch=1', 'branch=${BRANCH}'][d.getVar('BRANCH', True) != '']}"
 SRC_URI = "${REPO};${BRANCHARG}"
+
+SRC_URI:append = " \
+       file://0001-bootgen-fix-header-file-missing.patch \
+"
 
 do_install() {
     install -d ${D}${bindir}
