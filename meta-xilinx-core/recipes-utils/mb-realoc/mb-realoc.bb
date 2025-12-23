@@ -17,13 +17,13 @@ OUTFILE_NAME ?= "u-boot-s"
 S = "${UNPACKDIR}"
 B = "${WORKDIR}/build"
 
-PARALLEL_MAKE=""
+PARALLEL_MAKE = ""
 
-do_configure[noexec]="1"
+do_configure[noexec] = "1"
 do_compile[depends] = "virtual/bootloader:do_deploy"
 
 do_compile() {
-	export CROSS_COMPILE="${TARGET_PREFIX}"
+	export CROSS_COMPILE = "${TARGET_PREFIX}"
 	${S}/mb-realoc -l ${ELF_LOAD_ADDR} -i ${ELF_INFILE} -o ${OUTFILE_NAME}
 }
 
