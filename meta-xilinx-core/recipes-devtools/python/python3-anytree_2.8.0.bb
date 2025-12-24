@@ -10,8 +10,6 @@ DEPENDS += "python3-six"
 SRC_URI = "git://github.com/c0fec0de/anytree.git;branch=2.x.x;protocol=https"
 SRCREV = "75c0198636f8997967ba00df5077cd21350f68ce"
 
-S = "${UNPACKDIR}/git"
-
 inherit setuptools3
 
 do_install:append() {
