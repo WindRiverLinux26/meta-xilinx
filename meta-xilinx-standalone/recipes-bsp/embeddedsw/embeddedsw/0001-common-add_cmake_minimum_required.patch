@@ -1,0 +1,31 @@
+From 277212dc61a667c0b824dfa172b02febc3185f49 Mon Sep 17 00:00:00 2001
+From: Quanyang Wang <quanyang.wang@windriver.com>
+Date: Thu, 25 Dec 2025 13:22:36 +0800
+Subject: [PATCH] common: add cmake_minimum_required
+
+This patch is to fix the following error:
+
+	 CMake Error in CMakeLists.txt:
+	   No cmake_minimum_required command is present.  A line of code such as
+
+	     cmake_minimum_required(VERSION 4.2)
+
+	   should be added at the top of the file.  The version specified may be lower
+	   if you wish to support older CMake versions for this project.  For more
+	   information run "cmake --help-policy CMP0000".
+
+Upstream-Status: Pending
+
+Signed-off-by: Quanyang Wang <quanyang.wang@windriver.com>
+---
+diff --git a/lib/bsp/standalone/src/common/intr/CMakeLists.txt b/lib/bsp/standalone/src/common/intr/CMakeLists.txt
+index 1fc72389a2..a583bfdfd6 100644
+--- a/lib/bsp/standalone/src/common/intr/CMakeLists.txt
++++ b/lib/bsp/standalone/src/common/intr/CMakeLists.txt
+@@ -1,5 +1,6 @@
+ # Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+ # SPDX-License-Identifier: MIT
++cmake_minimum_required(VERSION 4.2)
+ 
+ if (YOCTO)
+ find_package(common)

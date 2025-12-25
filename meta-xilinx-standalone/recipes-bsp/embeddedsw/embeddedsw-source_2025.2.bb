@@ -10,5 +10,6 @@ SRC_URI = " \
 	${EMBEDDEDSW_SRCURI} \
 	file://makefile-skip-copy_bsp.sh.patch \
 	file://fsbl-fixups.patch \
+	file://0001-common-add_cmake_minimum_required.patch \
 	file://0001-versal_fw-Fixup-core-makefiles.patch \
 	"
