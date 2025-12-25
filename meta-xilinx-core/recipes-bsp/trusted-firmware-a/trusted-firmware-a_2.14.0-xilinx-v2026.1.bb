@@ -127,17 +127,17 @@ do_install:append() {
     # The first TFA_INSTALL_TARGET found will be copied as the standard boot firmware
     for atfbin in ${TFA_INSTALL_TARGET} ; do
         install -d ${D}/boot
-        if [ -e ${D}/firmware/$atfbin-${TFA_PLATFORM}.elf ]; then
-            ln ${D}/firmware/$atfbin-${TFA_PLATFORM}.elf ${D}/boot/${ATF_BASE_NAME}.elf
+        if [ -e ${D}${FIRMWARE_DIR}/$atfbin${TFA_INSTALL_SUFFIX}.elf ]; then
+            ln ${D}${FIRMWARE_DIR}/$atfbin${TFA_INSTALL_SUFFIX}.elf ${D}/boot/${ATF_BASE_NAME}.elf
             ln -sf ${ATF_BASE_NAME}.elf ${D}/boot/arm-trusted-firmware.elf
-            ln ${D}/firmware/$atfbin-${TFA_PLATFORM}.bin ${D}/boot/${ATF_BASE_NAME}.bin
+            ln ${D}${FIRMWARE_DIR}/$atfbin${TFA_INSTALL_SUFFIX}.bin ${D}/boot/${ATF_BASE_NAME}.bin
             ln -sf ${ATF_BASE_NAME}.bin ${D}/boot/arm-trusted-firmware.bin
 
             # Get the entry point address from the elf.
             BL31_BASE_ADDR=$(${READELF} -h ${D}/boot/${ATF_BASE_NAME}.elf | egrep -m 1 -i "entry point.*?0x" | sed -r 's/.*?(0x.*?)/\1/g')
             mkimage -A arm64 -O arm-trusted-firmware -T kernel -C none \
                     -a $BL31_BASE_ADDR -e $BL31_BASE_ADDR \
-                    -d ${D}/firmware/$atfbin-${TFA_PLATFORM}.bin ${D}/boot/${ATF_BASE_NAME}.ub
+                    -d ${D}${FIRMWARE_DIR}/$atfbin${TFA_INSTALL_SUFFIX}.bin ${D}/boot/${ATF_BASE_NAME}.ub
             ln -sf ${ATF_BASE_NAME}.ub ${D}/boot/arm-trusted-firmware.ub
             ln -sf ${ATF_BASE_NAME}.ub ${D}/boot/atf-uboot.ub
             break
