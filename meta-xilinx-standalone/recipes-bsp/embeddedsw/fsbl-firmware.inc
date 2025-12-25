@@ -20,3 +20,5 @@ ESW_COMPONENT ??= "fsbl.elf"
 
 # Disable buildpaths QA check warnings.
 INSANE_SKIP:${PN} += "buildpaths"
+
+SECURITY_CFLAGS:pn-${PN} = "${SECURITY_NOPIE_CFLAGS}"
