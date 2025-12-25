@@ -144,3 +144,5 @@ FILES:${PN} = " ${bindir}/*.elf "
 LIC_FILES_CHKSUM ?= "file://LICENSE.md;md5=ab88daf995c0bd0071c2e1e55f3d3505"
 PV .= "+git"
 PROVIDES += "libmetal-demo-remote"
+
+SECURITY_CFLAGS:pn-${PN} = "${SECURITY_NOPIE_CFLAGS}"
