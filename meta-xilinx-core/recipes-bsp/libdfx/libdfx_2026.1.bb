@@ -23,3 +23,5 @@ inherit cmake
 # Due to an update where the soname/version was defined, we need to use an RREPLACES
 # so updates will work properly.
 RREPLACES:${PN} = "libdfx"
+
+EXTRA_OECMAKE += "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"

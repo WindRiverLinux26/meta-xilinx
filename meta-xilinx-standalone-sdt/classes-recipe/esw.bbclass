@@ -107,7 +107,7 @@ do_install() {
 }
 
 CFLAGS:append = " ${ESW_CFLAGS}"
-EXTRA_OECMAKE += "-DYOCTO=ON"
+EXTRA_OECMAKE += "-DYOCTO=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
 
 do_configure:prepend() {
     (
