@@ -28,8 +28,6 @@ SRC_URI = " \
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
-S = "${UNPACKDIR}/git"
-
 # If were switching at runtime, we would need all RDEPENDS needed for all backends available
 X11RDEPENDS = "libxdamage libxext libx11 libdrm libxfixes"
 X11DEPENDS = "libxdamage libxext virtual/libx11 libdrm libxfixes"
