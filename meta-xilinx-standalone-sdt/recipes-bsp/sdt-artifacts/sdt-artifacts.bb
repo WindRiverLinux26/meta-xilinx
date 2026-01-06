@@ -24,7 +24,7 @@ COMPATIBLE_HOST:xilinx-standalone = "${HOST_SYS}"
 PACKAGE_ARCH ?= "${MACHINE_ARCH}"
 
 # Don't set S = "${UNPACKDIR}/git" as we need this to work for other protocols
-S = "${@d.getVarFlag('SDT_URI', 'S') or '${UNPACKDIR}'}"
+S = "${UNPACKDIR}/${@os.path.relpath(d.getVarFlag('SDT_URI', 'S'), d.getVar('WORKDIR'))}"
 
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
