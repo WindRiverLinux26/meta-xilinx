@@ -26,6 +26,7 @@ ESW_COMPONENT_NAME = "libxil.a"
 
 DEPENDS += "xilstandalone "
 MACHINE_FEATURES:remove = "aiengine dfeccf dfeequ dfemix dfeprach rfdc dfeofdm"
+MACHINE_FEATURES:remove = "mali400"
 REQUIRED_MACHINE_FEATURES = "${MACHINE_FEATURES}"
 PACKAGECONFIG ?= "${MACHINE_FEATURES}"
 
