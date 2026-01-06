@@ -1,4 +1,4 @@
-PACKAGECONFIG:append = " dri3 gallium"
+PACKAGECONFIG:append = " gallium"
 
 # If we're using libmali-xlnx, then we need to bring it in for the KHR/khrplatform.h file
 DEPENDS .= "${@' libmali-xlnx' if d.getVar('PREFERRED_PROVIDER_virtual/libgles1') == 'libmali-xlnx' else ''}"
