@@ -1,0 +1,40 @@
+From 48968f81e2b67a5081ca1c48f15b0f238daab85a Mon Sep 17 00:00:00 2001
+From: Quanyang Wang <quanyang.wang@windriver.com>
+Date: Wed, 14 Jan 2026 11:05:10 +0800
+Subject: [embeddedsw][2025.2][PATCH] clk_wiz: fix incorrect parenthesis around strcmp
+
+The logic is to check if the comparison of InstancePtr->Config.Name and
+"xlnx,clkx5-wiz-1.0" is greater than or equal to zero. So the close
+parenthesis of strcmp should be placed in front of the "greater than or
+equal to" operator.
+
+This patch is to fix the following error:
+	microblazeel-v9.2-bs-cmp-re-xilinx-elf/clk-wiz/2025.2+git/sources/clk-wiz-2025.2+git/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.c:839:68: error: passing argument 2 of 'strcmp' makes pointer from integer without a cast [-Wint-conversion]
+|   839 |         if ((strcmp(InstancePtr->Config.Name, "xlnx,clkx5-wiz-1.0" >= 0))) {
+|       |                                               ~~~~~~~~~~~~~~~~~~~~~^~~~
+|       |                                                                    |
+|       |                                                                    int
+
+Upstream-Status: Submitted [git@amd.com]
+
+Signed-off-by: Quanyang Wang <quanyang.wang@windriver.com>
+---
+ XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.c b/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.c
+index 29602287037f..01f042dc6200 100644
+--- a/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.c
++++ b/XilinxProcessorIPLib/drivers/clk_wiz/src/xclk_wiz.c
+@@ -836,7 +836,7 @@ u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
+ 	Xil_AssertNonvoid(InstancePtr != NULL);
+ 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
+ 
+-	if ((strcmp(InstancePtr->Config.Name, "xlnx,clkx5-wiz-1.0" >= 0))) {
++	if (strcmp(InstancePtr->Config.Name, "xlnx,clkx5-wiz-1.0") >= 0) {
+ 		RegLow = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_L_OFFSET);
+ 		RegHigh = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_H_OFFSET) << 16 | RegLow;
+ 	}
+-- 
+2.43.0
+

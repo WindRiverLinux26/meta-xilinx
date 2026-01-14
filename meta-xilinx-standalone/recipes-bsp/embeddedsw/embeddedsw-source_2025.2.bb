@@ -12,4 +12,5 @@ SRC_URI = " \
 	file://fsbl-fixups.patch \
 	file://0001-common-add_cmake_minimum_required.patch \
 	file://0001-versal_fw-Fixup-core-makefiles.patch \
+	file://0001-clk_wiz-fix-incorrect-parenthesis-around-strcmp.patch \
 	"
