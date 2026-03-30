@@ -15,3 +15,7 @@ HAS_PLATFORM_INIT ?= " \
 DEPENDS += "bc-native dtc-native python3-setuptools-native gnutls-native"
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/u-boot-v2025.01:"
+
+SRC_URI:append = " \
+	file://0001-binman-drop-pkg_resources-API.patch \
+"
