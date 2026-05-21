@@ -20,7 +20,7 @@ from wic.misc import get_bitbake_var
 
 PLUGIN_TYPES = ["imager", "source"]
 
-SCRIPTS_PLUGIN_DIR = ["scripts/lib/wic/plugins", "lib/wic/plugins"]
+SCRIPTS_PLUGIN_DIR = ["scripts/lib/wic/xilinx-plugins", "lib/wic/xilinx-plugins"]
 
 logger = logging.getLogger('wic')
 
