@@ -111,8 +111,7 @@ EXTRA_OEMAKE:append:versal-2ve-2vm = " RESET_TO_BL31=1"
 TFA_SPD:versal-2ve-2vm ?= "${@bb.utils.contains('MACHINE_FEATURES', 'optee', 'opteed', '', d)}"
 
 # TFA 2.12 seems to want to use gcc for linking instead of ld
-LD = "${CCLD}"
-
+LD:pn-${PN} = "${CCLD}"
 
 # We use bl31
 TFA_BUILD_TARGET = "bl31"
