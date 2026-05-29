@@ -17,6 +17,8 @@ Error: Failed to link program created from files None and None:
 L0010 Uniform 'uCurrentTime' differ on precision
 Added highp in jellyfish fragment shader file to avoid this.
 
+Upstream-Status: Inappropriate [Xilinx specific]
+
 Signed-off-by: Yash Ladani <yash.ladani@amd.com>
 ---
  data/shaders/jellyfish.frag    | 4 ++++

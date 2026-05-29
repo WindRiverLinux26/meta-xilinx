@@ -16,6 +16,7 @@ Provide access to dma-buf fd from ARSOC buffer object.
 Attach shadow buffer object to corresponding pixmap.
 
 Signed-off-by: Anatoliy Klymenko <anatoliy.klymenko@amd.com>
+Upstream-Status: Inappropriate [Xilinx specific]
 ---
  src/Makefile.am        |   3 +-
  src/armsoc_driver.c    | 145 ++++++++++

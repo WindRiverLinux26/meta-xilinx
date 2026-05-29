@@ -9,6 +9,7 @@ have already done. Avoid this.
 YP integration specific.
 
 Signed-off-by: Sandeep Gundlupet Raju <sandeep.gundlupet-raju@amd.com>
+Upstream-Status: Inappropriate [local layer workaround]
 ---
  lib/sw_apps/asufw/src/Makefile                    | 4 ++--
  lib/sw_apps/versal_plm/src/versal_aiepg2/Makefile | 4 ++--

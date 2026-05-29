@@ -15,6 +15,7 @@ proper operation of GEM2 and QSPI.
 
 Signed-off-by: Ronak Jain <ronak.jain@amd.com>
 Acked-by: Buddhabhatti, Jay <jay.buddhabhatti@amd.com>
+Upstream-Status: Inappropriate [local layer workaround]
 ---
  lib/sw_apps/zynqmp_pmufw/src/iou_secure_slcr.h | 7 ++++---
  1 file changed, 4 insertions(+), 3 deletions(-)

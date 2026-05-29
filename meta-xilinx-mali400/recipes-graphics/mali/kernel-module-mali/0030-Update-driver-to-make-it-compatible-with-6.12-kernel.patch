@@ -8,6 +8,7 @@ Subject: [PATCH] Update driver to make it compatible with 6.12 kernel
 - .remove handler now returns void instead of int
 
 Signed-off-by: Yash Ladani <yash.ladani@amd.com>
+Upstream-Status: Inappropriate [Xilinx specific]
 ---
  linux/mali_internal_sync.c |  4 ++++
  linux/mali_kernel_linux.c  | 12 ++++++++++++

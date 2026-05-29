@@ -9,6 +9,7 @@ command line build version.  This Yocto Project specific will allow this
 behavior.
 
 Signed-off-by: Sandeep Gundlupet Raju <sandeep.gundlupet-raju@amd.com>
+Upstream-Status: Inappropriate [local layer workaround]
 ---
  lib/sw_apps/asufw/misc/Makefile                    | 6 ++++--
  lib/sw_apps/versal_plm/misc/versal_aiepg2/Makefile | 6 ++++--

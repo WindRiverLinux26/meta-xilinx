@@ -4,6 +4,7 @@ Date: Tue, 3 Dec 2024 18:27:32 -0700
 Subject: [PATCH] Remove hardcoded multilibs
 
 Signed-off-by: Mark Hatle <mark.hatle@amd.com>
+Upstream-Status: Inappropriate [local layer workaround]
 ---
  lib/sw_apps/asufw/src/Makefile | 7 ++++---
  1 file changed, 4 insertions(+), 3 deletions(-)
