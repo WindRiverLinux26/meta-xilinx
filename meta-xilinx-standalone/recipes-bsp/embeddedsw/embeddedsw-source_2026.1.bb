@@ -11,4 +11,5 @@ SRC_URI = " \
 	file://makefile-skip-copy_bsp.sh.patch \
 	file://fsbl-fixups.patch \
 	file://0001-versal_fw-Fixup-core-makefiles.patch \
+	file://0001-xdmapcie-fix-Wimplicit-function-declaration.patch \
 	"

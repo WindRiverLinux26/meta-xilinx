@@ -1,0 +1,40 @@
+From bb48a00599d527cd81e5ef2927b041e2d3d5d05b Mon Sep 17 00:00:00 2001
+From: Quanyang Wang <quanyang.wang@windriver.com>
+Date: Tue, 2 Jun 2026 14:27:52 +0800
+Subject: [PATCH] xdmapcie: fix Wimplicit-function-declaration
+
+msleep is not available in the standalone BSP sleep.h.
+Replace msleep(ms) with usleep(ms * 1000) which is available
+in both SDT and non-SDT builds.
+
+Upstream-Status: Pending
+
+Signed-off-by: Quanyang Wang <quanyang.wang@windriver.com>
+---
+ XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c b/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c
+index 2b9b033..8a177bc 100644
+--- a/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c
++++ b/XilinxProcessorIPLib/drivers/xdmapcie/src/xdmapcie_i2c.c
+@@ -138,7 +138,7 @@ static int XdmaPcie_I2cWriteByte(XDmaPcie *InstancePtr, u8 *val, u16 SlaveAddr)
+         goto fail;
+     }
+ 
+-    msleep(XDMAPCIE_PVPERL_MS);
++    usleep(XDMAPCIE_PVPERL_MS * 1000U);
+ 
+     /* Deassert the reset signal */
+     Buffer[0] = GPIO_OUTPUT_REG;
+@@ -162,7 +162,7 @@ static int XdmaPcie_I2cWriteByte(XDmaPcie *InstancePtr, u8 *val, u16 SlaveAddr)
+         goto fail;
+     }
+ 
+-    msleep(XDMAPCIE_PVPERL_MS);
++    usleep(XDMAPCIE_PVPERL_MS * 1000U);
+ 
+     return XST_SUCCESS;
+ 
+-- 
+2.40.0

@@ -1,0 +1,38 @@
+From 022c3c476bc5c1576fcff5c1139d8a1751b63334 Mon Sep 17 00:00:00 2001
+From: Quanyang Wang <quanyang.wang@windriver.com>
+Date: Wed, 27 May 2026 15:50:04 +0800
+Subject: [PATCH] bootgen: fix Wincompatible-pointer-types
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This patch fixes the following error with gcc option
+"-Wincompatible-pointer-types" enabled:
+
+| utils/src/cdo-load.c:140:14: error: assignment to ‘char *’ from incompatible pointer type ‘uint32_t *’ {aka ‘unsigned int *’} [-Wincompatible-pointer-types]
+|   140 |         data = raw->data;
+|       |              ^
+
+Upstream-Status: Pending
+
+Signed-off-by: Quanyang Wang <quanyang.wang@windriver.com>
+---
+ utils/src/cdo-load.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/utils/src/cdo-load.c b/utils/src/cdo-load.c
+index cb0ff49..96a479a 100755
+--- a/utils/src/cdo-load.c
++++ b/utils/src/cdo-load.c
+@@ -137,7 +137,7 @@ CdoSequence * cdoseq_load_cdo_from_buffer(char * data, size_t size) {
+     if (data == NULL) goto done;
+     raw = cdoraw_decode(data, size);
+     if (raw != NULL) {
+-        data = raw->data;
++        data = (char *)raw->data;
+         size = raw->size;
+     }
+     if (is_cdo_data(data, size)) {
+-- 
+2.40.0
+
