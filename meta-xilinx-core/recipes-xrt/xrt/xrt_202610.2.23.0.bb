@@ -18,17 +18,17 @@ S = "${UNPACKDIR}/${BP}/src"
 
 inherit cmake pkgconfig
 
-PREFERRED_PROVIDER_virtual/opencl-icd ??= "opencl-icd-loader"
+PREFERRED_PROVIDER_virtual/libopencl1 ??= "opencl-icd-loader"
 
-PACKAGECONFIG ??= "aie ${PREFERRED_PROVIDER_virtual/opencl-icd}"
+PACKAGECONFIG ??= "aie ${PREFERRED_PROVIDER_virtual/libopencl1}"
 PACKAGECONFIG[aie] = ",,libxaiengine aiefal,libxaiengine aiefal"
 PACKAGECONFIG[ocl-icd] = ",,ocl-icd,ocl-icd"
 PACKAGECONFIG[opencl-icd-loader] = ",,opencl-icd-loader,opencl-icd-loader"
 
 # util-linux is for libuuid-dev.
 # coreutils-native is for base64, used by aiebu
-DEPENDS = "libdrm opencl-headers virtual/opencl-icd opencl-clhpp boost util-linux git-replacement-native protobuf-native coreutils-native protobuf elfutils libffi rapidjson systemtap libdfx"
-RDEPENDS:${PN} = "bash boost-system boost-filesystem zocl (= ${PV})"
+DEPENDS = "libdrm opencl-headers virtual/libopencl1 opencl-clhpp boost util-linux git-replacement-native protobuf-native coreutils-native protobuf elfutils libffi rapidjson systemtap libdfx"
+RDEPENDS:${PN} = "bash boost-filesystem zocl (= ${PV})"
 
 EXTRA_OECMAKE += " \
 		-DCMAKE_BUILD_TYPE=Release \
