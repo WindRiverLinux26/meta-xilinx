@@ -9,8 +9,8 @@ inherit esw deploy
 ESW_COMPONENT_SRC = "/lib/sw_services/xilsecure/examples/"
 
 PACKAGECONFIG ??= "client server"
-PACKAGECONFIG[client] = "-DXILSECURE_mode="client",,"
-PACKAGECONFIG[server] = "-DXILSECURE_mode="server",,"
+PACKAGECONFIG[client]  ="-DXILSECURE_mode="client",,"
+PACKAGECONFIG[server]  ="-DXILSECURE_mode="server",,"
 
 DEPENDS += "xilsecure"
 
@@ -35,10 +35,10 @@ do_install() {
 }
 
 do_deploy() {
-    if [ -d ${WORKDIR}/package/${base_libdir}/firmware ] && \
-       ls ${WORKDIR}/package/${base_libdir}/firmware/*.elf >/dev/null 2>&1; then
+    if [ -d ${PKGD}/${base_libdir}/firmware ] && \
+       ls ${PKGD}/${base_libdir}/firmware/*.elf >/dev/null 2>&1; then
         install -d ${DEPLOYDIR}/${BPN}/
-        install -Dm 0644 ${WORKDIR}/package/${base_libdir}/firmware/*.elf ${DEPLOYDIR}/${BPN}/
+        install -Dm 0644 ${PKGD}/${base_libdir}/firmware/*.elf ${DEPLOYDIR}/${BPN}/
     fi
 }
 addtask deploy before do_build after do_package

@@ -17,8 +17,8 @@ SRCREV_arbitration = "8c5448552b84e5a7ecb13046ad02a31cb673aeeb"
 SRCREV_FORMAT = "kernel_arbitration"
 
 SRC_URI = " \
-        git://github.com/Xilinx/malig78ae-kbase.git;protocol=https;branch=${BRANCH};name=kernel;destsuffix=git/kbase \
-        git://github.com/Xilinx/malig78ae-arbitration.git;protocol=https;branch=${BRANCH};name=arbitration;destsuffix=git/arbiter \
+        git://github.com/Xilinx/malig78ae-kbase.git;protocol=https;branch=${BRANCH};name=kernel;destsuffix=kbase \
+        git://github.com/Xilinx/malig78ae-arbitration.git;protocol=https;branch=${BRANCH};name=arbitration;destsuffix=arbiter \
         file://compiler.py \
         file://load-mali-modules.sh \
         file://99-mali-modules.rules \
@@ -27,11 +27,11 @@ SRC_URI = " \
 
 inherit features_check module python3native
 
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}"
 
 REQUIRED_MACHINE_FEATURES = "malig78ae"
 
-BUILD_SCRIPT = "${WORKDIR}/compiler.py"
+BUILD_SCRIPT = "${UNPACKDIR}/compiler.py"
 BUILD_CMD = "${STAGING_BINDIR_NATIVE}/python3-native/python3 ${BUILD_SCRIPT} --driver ${S}/kbase --debug"
 
 INSTALL_DIR = "${nonarch_base_libdir}/modules/${KERNEL_VERSION}"
@@ -51,15 +51,15 @@ do_install() {
 
         # Install the script to load modules and configure settings
         install -d ${D}/usr/bin
-        install -m 0755 ${WORKDIR}/load-mali-modules.sh ${D}/usr/bin
+        install -m 0755 ${UNPACKDIR}/load-mali-modules.sh ${D}/usr/bin
 
         # Install the udev rules file to /etc/udev/rules.d/
         install -d ${D}/etc/udev/rules.d
-        install -m 0644 ${WORKDIR}/99-mali-modules.rules ${D}/etc/udev/rules.d
+        install -m 0644 ${UNPACKDIR}/99-mali-modules.rules ${D}/etc/udev/rules.d
 
         # Install the mali_kbase conf
         install -d ${D}/etc/modprobe.d/
-        install -m 0644 ${WORKDIR}/mali_kbase.conf ${D}/etc/modprobe.d/
+        install -m 0644 ${UNPACKDIR}/mali_kbase.conf ${D}/etc/modprobe.d/
 }
 
 

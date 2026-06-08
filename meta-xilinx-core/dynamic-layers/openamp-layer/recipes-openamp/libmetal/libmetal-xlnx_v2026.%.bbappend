@@ -1,12 +1,10 @@
 inherit cmake ccmake deploy
 
-S:xilinx-standalone = "${WORKDIR}/git"
 B:xilinx-standalone = "${WORKDIR}/build"
 
 OECMAKE_SOURCEPATH:xilinx-standalone = "${S}/"
 PROVIDES:xilinx-standalone = "libmetal"
 
-S:xilinx-freertos = "${WORKDIR}/git"
 B:xilinx-freertos = "${WORKDIR}/build"
 
 OECMAKE_SOURCEPATH:xilinx-freertos = "${S}/"

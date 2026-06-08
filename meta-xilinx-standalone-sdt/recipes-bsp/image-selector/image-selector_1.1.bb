@@ -18,7 +18,7 @@ ESW_EXECUTABLE_NAME = "imgsel"
 SRC_URI:append = " git://github.com/Xilinx/image-selector.git;protocol=https;branch=main;destsuffix=image-selector;name=image-selector"
 SRCREV_image-selector = "283bcb2b49eaa2ff1eae2f0d926e1844797352c2"
 
-OECMAKE_SOURCEPATH = "${WORKDIR}/${BPN}/${ESW_COMPONENT_SRC}"
+OECMAKE_SOURCEPATH = "${UNPACKDIR}/${BPN}/${ESW_COMPONENT_SRC}"
 
 # Workaround for bug in bootgen id_code extraction
 # versal-2vp support is not yet implemented

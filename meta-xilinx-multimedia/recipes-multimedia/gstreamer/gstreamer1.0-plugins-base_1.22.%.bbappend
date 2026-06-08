@@ -8,4 +8,4 @@ SRC_URI:append = " \
 
 PACKAGECONFIG:append = " opus"
 
-S = "${WORKDIR}/git/subprojects/gst-plugins-base"
+S = "${UNPACKDIR}/${BP}/subprojects/gst-plugins-base"

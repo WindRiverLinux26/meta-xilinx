@@ -1,3 +1,3 @@
 require gstreamer-xilinx-1.22.%.inc
 
-S = "${WORKDIR}/git/subprojects/gstreamer-vaapi"
+S = "${UNPACKDIR}/${BP}/subprojects/gstreamer-vaapi"

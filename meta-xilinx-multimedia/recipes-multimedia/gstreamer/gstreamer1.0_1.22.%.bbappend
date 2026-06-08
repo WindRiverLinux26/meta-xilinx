@@ -10,4 +10,4 @@ SRC_URI:append = " \
 
 PACKAGECONFIG:append = " tracer-hooks coretracers"
 
-S = "${WORKDIR}/git/subprojects/gstreamer"
+S = "${UNPACKDIR}/${BP}/subprojects/gstreamer"

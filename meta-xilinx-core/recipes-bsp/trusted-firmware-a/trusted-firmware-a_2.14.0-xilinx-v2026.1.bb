@@ -33,7 +33,7 @@ SRCREV = "e9b1373a7dd9fce25b5a2fe6189dd5ec6eedf24a"
 SRCREV_FORMAT:append = "${@bb.utils.contains('TFA_SCMI_SERVER', '1', '_scmi-server', '', d)}"
 
 # Pass SCMI server path to TF-A build
-EXTRA_OEMAKE += "${@bb.utils.contains('TFA_SCMI_SERVER', '1', 'CUSTOM_PKG_PATH=${WORKDIR}/scmi-server', '', d)}"
+EXTRA_OEMAKE += "${@bb.utils.contains('TFA_SCMI_SERVER', '1', 'CUSTOM_PKG_PATH=${UNPACKDIR}/scmi-server', '', d)}"
 
 
 # The following are Xilinx specific settings

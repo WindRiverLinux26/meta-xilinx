@@ -18,7 +18,7 @@ SRC_URI = "${SOURCEFORGE_MIRROR}/omxil/libomxil-bellagio-${PV}.tar.gz \
 SRC_URI[md5sum] = "a1de827fdb75c02c84e55f740ca27cb8"
 SRC_URI[sha256sum] = "593c0729c8ef8c1467b3bfefcf355ec19a46dd92e31bfc280e17d96b0934d74c"
 
-S = "${WORKDIR}/${BPN}-bellagio-${PV}"
+S = "${UNPACKDIR}/${BPN}-bellagio-${PV}"
 
 inherit autotools
 

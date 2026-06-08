@@ -22,7 +22,7 @@ PM_DEPENDS:versal-2ve-2vm = " xilpm-ng "
 DEPENDS:append = " ${PM_DEPENDS} "
 
 B = "${WORKDIR}/build"
-S = "${WORKDIR}/git/examples/libmetal"
+S = "${UNPACKDIR}/${BP}/examples/libmetal"
 OECMAKE_SOURCEPATH = "${S}"
 
 OECMAKE_C_LINK_FLAGS:append = " --sysroot=${STAGING_DIR_HOST} -lxil -lxilstandalone -lxiltimer -lmetal "

@@ -18,6 +18,7 @@ BOOTBIN_INCLUDE ?= ""
 
 inherit deploy bootgen-bif shared-manifest-aggregate
 
+S = "${UNPACKDIR}"
 
 MANIFEST_AGGREGATE_COMPONENTS:zynq = "device-tree u-boot fsbl"
 MANIFEST_AGGREGATE_COMPONENTS:zynqmp = "device-tree u-boot fsbl trusted-firmware-a pmu-firmware"
@@ -101,7 +102,7 @@ do_configure[vardeps] += "BIF_PARTITION_ID BIF_PARTITION_NAME"
 do_compile() {
     rm -f ${B}/BOOT.bin
     if [ "${BIF_FILE_PATH}" != "${B}/bootgen.bif" ];then
-        BIF_FILE_PATH="${WORKDIR}${BIF_FILE_PATH}"
+        BIF_FILE_PATH="${S}${BIF_FILE_PATH}"
     fi
     bootgen -image ${BIF_FILE_PATH} -arch ${BOOTGEN_ARCH} ${BOOTGEN_EXTRA_ARGS} -w -o ${B}/BOOT.bin
     if [ ! -e ${B}/BOOT.bin ]; then

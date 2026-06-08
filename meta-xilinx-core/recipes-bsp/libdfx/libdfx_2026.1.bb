@@ -18,8 +18,6 @@ COMPATIBLE_MACHINE:versal = ".*"
 COMPATIBLE_MACHINE:versal-net = ".*"
 COMPATIBLE_MACHINE:versal-2ve-2vm = ".*"
 
-S = "${WORKDIR}/git"
-
 inherit cmake
 
 # Due to an update where the soname/version was defined, we need to use an RREPLACES

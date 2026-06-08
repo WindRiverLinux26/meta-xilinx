@@ -4,7 +4,7 @@ SUMMARY = "Image update is used to update alternate image on compatible firmware
 	Usage: image_update <Input Image File>"
 
 LICENSE = "MIT"
-LIC_FILES_CHKSUM = "file://${WORKDIR}/git/LICENSES/MIT;md5=2ac09a7a37dd6ee0ba23ce497d57d09b"
+LIC_FILES_CHKSUM = "file://LICENSES/MIT;md5=2ac09a7a37dd6ee0ba23ce497d57d09b"
 
 BRANCH = "master"
 SRC_URI = "git://github.com/Xilinx/linux-image_update.git;branch=${BRANCH};protocol=https"
@@ -13,7 +13,6 @@ SRCREV = "1cf36645012ead64f05f24972ac6a273038296a4"
 inherit autotools-brokensep
 RDEPENDS:${PN} += "freeipmi"
 
-S = "${WORKDIR}/git"
 
 COMPATIBLE_MACHINE = "^$"
 COMPATIBLE_MACHINE:zynqmp = "zynqmp"
